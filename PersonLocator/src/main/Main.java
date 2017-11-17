@@ -11,6 +11,7 @@ public class Main {
 		new Sensor("Mario", OntologyReference.WIFI_SOURCE, "5", 5000).start();
 		new Sensor("Mario", OntologyReference.GPS_SOURCE, "10", 5000).start();
 		new Sensor("Mario", OntologyReference.NFC_SOURCE, "1", 30000).start();
+		new Sensor("Mario", OntologyReference.NFC_SOURCE, "1", 30000).start();
 		
 	}
 
