@@ -5,7 +5,7 @@ import java.util.Properties;
 
 public class SIBConfiguration {
 	
-	private static String CONFIG_FILE_NAME = "path/to/file";
+	private static String CONFIG_FILE_NAME = "SIBConfig.properties";
 	
 	private String host;
 	private int port;
