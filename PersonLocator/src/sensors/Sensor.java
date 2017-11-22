@@ -32,9 +32,9 @@ public class Sensor extends Thread{
 		this.sourceType = sourceType;
 		this.precision = precision;
 		this.updatePeriodMillis = updatePeriodMillis;
-		kp = new KPICore(SIBConfiguration.HOST,
-				SIBConfiguration.PORT,
-				SIBConfiguration.SMART_SPACE_NAME);
+		kp = new KPICore(SIBConfiguration.getInstance().getHost(),
+				SIBConfiguration.getInstance().getPort(),
+				SIBConfiguration.getInstance().getSmartSpaceName());
 		r = new Random(person.hashCode());
 	}
 	

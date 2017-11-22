@@ -15,9 +15,9 @@ public class Person extends Thread {
 	
 	@Override
 	public void run() {
-		KPICore kp = new KPICore(SIBConfiguration.HOST,
-				SIBConfiguration.PORT,
-				SIBConfiguration.SMART_SPACE_NAME);
+		KPICore kp = new KPICore(SIBConfiguration.getInstance().getHost(),
+				SIBConfiguration.getInstance().getPort(),
+				SIBConfiguration.getInstance().getSmartSpaceName());
 		
 		if(!kp.join().isConfirmed())
 			System.err.println ("Error joining the SIB");
