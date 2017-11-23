@@ -24,11 +24,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
-/**
- * This example demonstrates how to draw polylines on the map.
- *
- * @author Vitaly Eremenko
- */
+
 public class MapExample extends MapView {
 	private Map map;
     public MapExample() {
@@ -56,6 +52,48 @@ public class MapExample extends MapView {
                     // Setting initial zoom value
                     map.setZoom(17.0);                          
                 }
+    
+                parser p;
+                parser p2;
+            	List<LatLng> points;
+                List<LatLng> points2;
+        		try {
+        			p = new parser("./gpx/32.gpx");
+        			p2 = new parser("./gpx/path2.gpx");
+        			points = p.getListOfPoint();
+        			points2 = p2.getListOfPoint();
+                    Marker m= addMarker(points.get(0));
+                    Marker m1= addMarker(points2.get(0));
+                    
+                    addPolyline(points2, "#0066ff");
+                    addPolyline(points, "#e60000");
+                    int i=1;
+                    int k=Math.min(points2.size(), points.size());
+                    
+                    while(i<k-1) {
+                    	Thread.sleep(50);
+                    	i++;
+                    	moveMarker(m, points.get(i));
+                    	moveMarker(m1, points2.get(i));
+                    }
+
+                    if (k==points.size()) {
+                    	for(int j=i; j<points2.size(); j++) {
+                    		Thread.sleep(50);
+                    		moveMarker(m1, points2.get(j));
+                    	}
+                    		
+                    }else {
+                    	for(int j=i; j<points.size(); j++) {
+                    		Thread.sleep(50);
+                    		moveMarker(m, points.get(j));
+                    	}
+                    }
+        		} catch (ParserConfigurationException | SAXException | IOException | InterruptedException e) {
+        			// TODO Auto-generated catch block
+        			e.printStackTrace();
+        		}
+                
             }
         });
     }
@@ -112,29 +150,6 @@ public class MapExample extends MapView {
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
         frame.setResizable(false);
-        Thread.sleep(2000);     
-        parser p = new parser("./gpx/32.gpx");
-        parser p2 = new parser("./gpx/path2.gpx");
-        
-        List<LatLng> points = p.getListOfPoint();
-        List<LatLng> points2 = p2.getListOfPoint();
-        
-        
-        Marker m= sample.addMarker(points.get(0));
-        Marker m1= sample.addMarker(points2.get(0));
-        
-        sample.addPolyline(points2, "#FFFFF");
-        sample.addPolyline(points, "#FF000");
-        int i=0;
-        for (LatLng point: points) {
-        	
-        	sample.moveMarker(m, point);
-        	sample.moveMarker(m1, points2.get(i++));
-            Thread.sleep(100);
-        }
-        
-        
-        
     }
 
 }
