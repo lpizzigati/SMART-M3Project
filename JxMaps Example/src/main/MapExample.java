@@ -1,6 +1,20 @@
 package main;
 
+import java.awt.BorderLayout;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.List;
+
+import javax.swing.JFrame;
+import javax.swing.WindowConstants;
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.xml.sax.SAXException;
+
 import com.teamdev.jxmaps.ControlPosition;
+import com.teamdev.jxmaps.Icon;
 import com.teamdev.jxmaps.LatLng;
 import com.teamdev.jxmaps.Map;
 import com.teamdev.jxmaps.MapOptions;
@@ -11,18 +25,8 @@ import com.teamdev.jxmaps.Marker;
 import com.teamdev.jxmaps.Polyline;
 import com.teamdev.jxmaps.PolylineOptions;
 import com.teamdev.jxmaps.swing.MapView;
-import com.teamdev.jxmaps.Icon;
-import javax.swing.*;
-import javax.xml.parsers.ParserConfigurationException;
 
-import org.xml.sax.SAXException;
-
-import java.awt.*;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.List;
+import parser.Parser;
 
 /**
  * This example demonstrates how to draw polylines on the map.
@@ -30,7 +34,10 @@ import java.util.List;
  * @author Vitaly Eremenko
  */
 public class MapExample extends MapView {
+
+	private static final long serialVersionUID = -2877189569097540460L;
 	private Map map;
+	
     public MapExample() {
         // Setting of a ready handler to MapView object. onMapReady will be called when map initialization is done and
         // the map object is ready to use. Current implementation of onMapReady customizes the map object.
@@ -113,23 +120,30 @@ public class MapExample extends MapView {
         frame.setVisible(true);
         frame.setResizable(false);
         Thread.sleep(2000);     
-        parser p = new parser("./gpx/32.gpx");
-        parser p2 = new parser("./gpx/path2.gpx");
+        Parser p = new Parser("./gpx/path_test.gpx");
+        Parser p2 = new Parser("./gpx/path2.gpx");
+        Parser p3 = new Parser("./gpx/32.gpx");
         
         List<LatLng> points = p.getListOfPoint();
         List<LatLng> points2 = p2.getListOfPoint();
-        
+        List<LatLng> points3 = p3.getListOfPoint();
         
         Marker m= sample.addMarker(points.get(0));
-        Marker m1= sample.addMarker(points2.get(0));
+        Marker m2= sample.addMarker(points2.get(0));
+        Marker m3= sample.addMarker(points3.get(0));
         
         sample.addPolyline(points2, "#FFFFF");
         sample.addPolyline(points, "#FF000");
-        int i=0;
-        for (LatLng point: points) {
-        	
-        	sample.moveMarker(m, point);
-        	sample.moveMarker(m1, points2.get(i++));
+        sample.addPolyline(points3, "#FFF00");
+        int i=0, i2=0;
+        for (LatLng point: points3) {
+        	sample.moveMarker(m2, points2.get(i2));
+        	sample.moveMarker(m, points.get(i));
+        	sample.moveMarker(m3, point);
+        	if(i < points.size() - 1)
+        		i++;
+        	if(i2 < points2.size() - 1)
+        		i2++;
             Thread.sleep(100);
         }
         
