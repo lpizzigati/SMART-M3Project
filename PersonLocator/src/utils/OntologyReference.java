@@ -20,6 +20,7 @@ public class OntologyReference {
 	
 	public static final String PERSON = NS + "Person";
 	public static final String HAS_LOCATION_DATA = NS + "hasLocationData";
+	public static final String HAS_LOCATION = NS + "hasLocation";
 	
 	public static final String LOCATION = NS + "Location";
 	
