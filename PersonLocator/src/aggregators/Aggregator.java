@@ -1,7 +1,6 @@
 package aggregators;
 
 import java.util.Vector;
-import java.util.stream.Collectors;
 
 import sofia_kp.KPICore;
 import sofia_kp.SIBResponse;
@@ -43,6 +42,8 @@ public class Aggregator extends Thread {
 					+ "?ld ?p ?o"
 				+ " }";
 		
+		
+		
 		Vector<Vector<String>> triplesToInsert = new Vector<>();
 		Vector<Vector<String>> oldTriples = new Vector<>();
 		
@@ -55,12 +56,51 @@ public class Aggregator extends Thread {
 		triplesToInsert.add(personLocationArch);
 		
 		
-		
+		System.out.println("Printing the query:");
+		System.out.println(sparqlQuery);
 		resp = kp.querySPARQL(sparqlQuery);
 		if(!resp.isConfirmed())
 			System.err.println("Errore nell'ottenere i dati dalla SIB");
-		
-
+		else {
+			
+			String mostPreciseLD = getMostPreciseLD(resp.sparqlquery_results.getResults());
+			
+			triplesToInsert.add(new Triple(
+					name,
+					OntologyReference.HAS_SOURCE,
+					resp.sparqlquery_results.getResults().stream().filter(riga -> riga.get(0)[2].equals(mostPreciseLD) && riga.get(1)[2].equals(OntologyReference.HAS_SOURCE)).findFirst().get().get(2)[2],
+					Triple.URI,
+					Triple.URI
+					).getAsVector());
+			triplesToInsert.add(new Triple(
+					name,
+					OntologyReference.HAS_PRECISION,
+					resp.sparqlquery_results.getResults().stream().filter(riga -> riga.get(0)[2].equals(mostPreciseLD) && riga.get(1)[2].equals(OntologyReference.HAS_PRECISION)).findFirst().get().get(2)[2],
+					Triple.URI,
+					Triple.LITERAL
+					).getAsVector());
+			triplesToInsert.add(new Triple(
+					name,
+					OntologyReference.HAS_LAT,
+					resp.sparqlquery_results.getResults().stream().filter(riga -> riga.get(0)[2].equals(mostPreciseLD) && riga.get(1)[2].equals(OntologyReference.HAS_LAT)).findFirst().get().get(2)[2],
+					Triple.URI,
+					Triple.LITERAL
+					).getAsVector());
+			triplesToInsert.add(new Triple(
+					name,
+					OntologyReference.HAS_LON,
+					resp.sparqlquery_results.getResults().stream().filter(riga -> riga.get(0)[2].equals(mostPreciseLD) && riga.get(1)[2].equals(OntologyReference.HAS_LON)).findFirst().get().get(2)[2],
+					Triple.URI,
+					Triple.LITERAL
+					).getAsVector());
+			triplesToInsert.add(new Triple(
+					name,
+					OntologyReference.HAS_TIMESTAMP,
+					resp.sparqlquery_results.getResults().stream().filter(riga -> riga.get(0)[2].equals(mostPreciseLD) && riga.get(1)[2].equals(OntologyReference.HAS_TIMESTAMP)).findFirst().get().get(2)[2],
+					Triple.URI,
+					Triple.LITERAL
+					).getAsVector());
+		}
 		
 		
 		
@@ -83,7 +123,43 @@ public class Aggregator extends Thread {
 				if(!resp.isConfirmed())
 					System.err.println("Errore nell'ottenere i dati dalla SIB");
 				
+				String mostPreciseLD = getMostPreciseLD(resp.sparqlquery_results.getResults());
 				
+				triplesToInsert.add(new Triple(
+						name,
+						OntologyReference.HAS_SOURCE,
+						resp.sparqlquery_results.getResults().stream().filter(riga -> riga.get(0)[2].equals(mostPreciseLD) && riga.get(1)[2].equals(OntologyReference.HAS_SOURCE)).findFirst().get().get(2)[2],
+						Triple.URI,
+						Triple.URI
+						).getAsVector());
+				triplesToInsert.add(new Triple(
+						name,
+						OntologyReference.HAS_PRECISION,
+						resp.sparqlquery_results.getResults().stream().filter(riga -> riga.get(0)[2].equals(mostPreciseLD) && riga.get(1)[2].equals(OntologyReference.HAS_PRECISION)).findFirst().get().get(2)[2],
+						Triple.URI,
+						Triple.LITERAL
+						).getAsVector());
+				triplesToInsert.add(new Triple(
+						name,
+						OntologyReference.HAS_LAT,
+						resp.sparqlquery_results.getResults().stream().filter(riga -> riga.get(0)[2].equals(mostPreciseLD) && riga.get(1)[2].equals(OntologyReference.HAS_LAT)).findFirst().get().get(2)[2],
+						Triple.URI,
+						Triple.LITERAL
+						).getAsVector());
+				triplesToInsert.add(new Triple(
+						name,
+						OntologyReference.HAS_LON,
+						resp.sparqlquery_results.getResults().stream().filter(riga -> riga.get(0)[2].equals(mostPreciseLD) && riga.get(1)[2].equals(OntologyReference.HAS_LON)).findFirst().get().get(2)[2],
+						Triple.URI,
+						Triple.LITERAL
+						).getAsVector());
+				triplesToInsert.add(new Triple(
+						name,
+						OntologyReference.HAS_TIMESTAMP,
+						resp.sparqlquery_results.getResults().stream().filter(riga -> riga.get(0)[2].equals(mostPreciseLD) && riga.get(1)[2].equals(OntologyReference.HAS_TIMESTAMP)).findFirst().get().get(2)[2],
+						Triple.URI,
+						Triple.LITERAL
+						).getAsVector());			
 						
 				
 				resp = kp.update(triplesToInsert, oldTriples);
@@ -102,7 +178,26 @@ public class Aggregator extends Thread {
 		
 	}
 	
-	
+	private String getMostPreciseLD(Vector<Vector<String[]>> locationData) {
+		String mostPreciseLD = "";
+		int maxPrecision = Integer.MAX_VALUE;
+		
+		for(Vector<String[]> riga : locationData) {
+			/*
+			 * so che la precisione è nel terzo campo del vettore, per quelle righe
+			 * che come secondo campo hanno il predicato hasPrecision
+			 */
+			/*
+			 * il valore del campo è alla 3 posizione dell'array
+			 */
+			
+			if(riga.get(1)[2].equals(OntologyReference.HAS_PRECISION) && Integer.parseInt(riga.get(2)[2]) < maxPrecision) {
+				mostPreciseLD = riga.get(0)[2];
+				maxPrecision = Integer.parseInt(riga.get(2)[2]);
+			}
+		}
+		return mostPreciseLD;
+	}
 	
 	
 }
