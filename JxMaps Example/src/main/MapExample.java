@@ -1,20 +1,6 @@
 package main;
 
-import java.awt.BorderLayout;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.List;
-
-import javax.swing.JFrame;
-import javax.swing.WindowConstants;
-import javax.xml.parsers.ParserConfigurationException;
-
-import org.xml.sax.SAXException;
-
 import com.teamdev.jxmaps.ControlPosition;
-import com.teamdev.jxmaps.Icon;
 import com.teamdev.jxmaps.LatLng;
 import com.teamdev.jxmaps.Map;
 import com.teamdev.jxmaps.MapOptions;
@@ -28,16 +14,25 @@ import com.teamdev.jxmaps.swing.MapView;
 
 import parser.Parser;
 
-/**
- * This example demonstrates how to draw polylines on the map.
- *
- * @author Vitaly Eremenko
- */
-public class MapExample extends MapView {
+import com.teamdev.jxmaps.Icon;
+import javax.swing.*;
+import javax.xml.parsers.ParserConfigurationException;
 
-	private static final long serialVersionUID = -2877189569097540460L;
-	private Map map;
+import org.xml.sax.SAXException;
+
+import java.awt.*;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.List;
+
+
+public class MapExample extends MapView {
 	
+	private static final long serialVersionUID = -2877189569097540460L;
+	
+	private Map map;
     public MapExample() {
         // Setting of a ready handler to MapView object. onMapReady will be called when map initialization is done and
         // the map object is ready to use. Current implementation of onMapReady customizes the map object.
@@ -59,10 +54,52 @@ public class MapExample extends MapView {
                     // Setting map options
                     map.setOptions(mapOptions);
                     // Setting the map center
-                    map.setCenter(new LatLng(44.4879010, 11.3325960));
+                    map.setCenter(new LatLng(44.4989010, 11.3555960));
                     // Setting initial zoom value
-                    map.setZoom(17.0);                          
+                    map.setZoom(13.0);                          
                 }
+    
+                Parser p;
+                Parser p2;
+                Parser p3;
+            	List<LatLng> points;
+                List<LatLng> points2;
+                List<LatLng> points3;
+        		try {
+        			p = new Parser("./gpx/32.gpx");
+        			p2 = new Parser("./gpx/path2.gpx");
+        			p3 = new Parser("./gpx/path_test.gpx");
+        			points = p.getListOfPoint();
+        			points2 = p2.getListOfPoint();
+        			points3 = p3.getListOfPoint();
+                    Marker m= addMarker(points.get(0));
+                    Marker m2= addMarker(points2.get(0));
+                    Marker m3= addMarker(points3.get(0));
+                    
+                    addPolyline(points, "#e60000");
+                    addPolyline(points2, "#0066ff");
+                    addPolyline(points3, "#8866ff");
+                    
+                    int size = points.size();
+                    int size2 = points2.size();
+                    int size3 = points3.size();
+                    int max = Math.max(size, size2);
+                    max = Math.max(max, size3);
+                    
+                    for (int i = 0; i < max; i++) {
+                    	Thread.sleep(50);
+                    	if (i < size)
+                    		moveMarker(m, points.get(i));
+                    	if (i < size2)
+                    		moveMarker(m2, points2.get(i));
+                    	if (i < size3)
+                    		moveMarker(m3, points3.get(i));
+                    }
+        		} catch (IOException | InterruptedException e) {
+        			// TODO Auto-generated catch block
+        			e.printStackTrace();
+        		}
+                
             }
         });
     }
@@ -119,36 +156,6 @@ public class MapExample extends MapView {
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
         frame.setResizable(false);
-        Thread.sleep(2000);     
-        Parser p = new Parser("./gpx/path_test.gpx");
-        Parser p2 = new Parser("./gpx/path2.gpx");
-        Parser p3 = new Parser("./gpx/32.gpx");
-        
-        List<LatLng> points = p.getListOfPoint();
-        List<LatLng> points2 = p2.getListOfPoint();
-        List<LatLng> points3 = p3.getListOfPoint();
-        
-        Marker m= sample.addMarker(points.get(0));
-        Marker m2= sample.addMarker(points2.get(0));
-        Marker m3= sample.addMarker(points3.get(0));
-        
-        sample.addPolyline(points2, "#FFFFF");
-        sample.addPolyline(points, "#FF000");
-        sample.addPolyline(points3, "#FFF00");
-        int i=0, i2=0;
-        for (LatLng point: points3) {
-        	sample.moveMarker(m2, points2.get(i2));
-        	sample.moveMarker(m, points.get(i));
-        	sample.moveMarker(m3, point);
-        	if(i < points.size() - 1)
-        		i++;
-        	if(i2 < points2.size() - 1)
-        		i2++;
-            Thread.sleep(100);
-        }
-        
-        
-        
     }
 
 }
