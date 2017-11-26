@@ -9,23 +9,11 @@ public class OntologyReference {
 	
 	public static final String RDF_TYPE = RDF + "type";
 	
-	public static final String NS = "http://lab2#";
+	public static final String NS = "http://project/IoES1718#";
 	
-	public static final String LOCATION_DATA = NS + "LocationData";
+	public static final String BUS = NS + "Bus";
 	public static final String HAS_LAT = NS + "hasLat";
 	public static final String HAS_LON = NS + "hasLon";
-	public static final String HAS_PRECISION = NS + "hasPrecision";
-	public static final String HAS_SOURCE = NS + "hasSource";
-	public static final String HAS_TIMESTAMP = NS + "hasTimestamp";
-	
-	public static final String PERSON = NS + "Person";
-	public static final String HAS_LOCATION_DATA = NS + "hasLocationData";
-	public static final String HAS_LOCATION = NS + "hasLocation";
-	
-	public static final String LOCATION = NS + "Location";
-	
-	public static final String WIFI_SOURCE = NS + "WifiSource";
-	public static final String GPS_SOURCE = NS + "GPSSource";
-	public static final String NFC_SOURCE = NS + "NFCSource";	
+
 	
 }
