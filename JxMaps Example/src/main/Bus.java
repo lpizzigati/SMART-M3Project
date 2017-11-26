@@ -21,17 +21,17 @@ public class Bus extends Thread {
 		if(!kp.join().isConfirmed())
 			System.err.println ("Error joining the SIB");
 		else
-			System.out.println ("SIB joined correctly");
+			System.out.println ("Bus joined SIB correctly");
 		
 		if(!kp.insert(
 				OntologyReference.NS + name,
 				OntologyReference.RDF_TYPE,
-				OntologyReference.PERSON,
+				OntologyReference.BUS,
 				Triple.URI,
 				Triple.URI).isConfirmed())
-			System.err.println ("Error inerting the person into the SIB");
+			System.err.println ("Error inerting bus into the SIB");
 		else
-			System.out.println ("Person correctly inserted");
+			System.out.println ("Bus correctly inserted");
 			
 	}
 	
