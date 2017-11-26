@@ -41,23 +41,7 @@ public class Aggregator extends Thread {
 				+ " }";			
 		Handler2 MyHandler = new Handler2(); 
 		resp = kp.subscribeSPARQL(sparqlQuery, MyHandler );
-		
-		
-		/*
-		System.out.println(sparqlQuery);
-		resp = kp.querySPARQL(sparqlQuery);
-		//System.out.println(resp.sparqlquery_results.print_as_string());
-		Vector<Vector<String[]>> data = resp.sparqlquery_results.getResults();
-		List<LatLng> points = new ArrayList<LatLng>();
-		for(Vector<String[]> riga : data) {
-			System.out.println("Location data:" + riga.get(0)[2] + "has lat: " + riga.get(1)[2]+ " has lon: " + riga.get(2)[2]); 	
-			String lat = riga.get(1)[2]+"0";
-			String lon = riga.get(2)[2]+"0";
-			System.out.println(lat + " " + lon);
-			points.add(0, new LatLng(Double.parseDouble(lat),Double.parseDouble(lon)));
-		}
-		*/
-	
+
 		JFrame frame = new JFrame("Polylines");
 		frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		frame.add(map, BorderLayout.CENTER);

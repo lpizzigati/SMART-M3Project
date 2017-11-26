@@ -24,9 +24,6 @@ public class Bus extends Thread {
 	@Override
 	public void run() {
 		LatLng nextPoint;
-		//Vector<Vector<String>> triplesToInsert = new Vector<>();		
-		//Vector<Vector<String>> oldTriples = new Vector<>();
-
 		KPICore kp = new KPICore(SIBConfiguration.getInstance().getHost(),
 				SIBConfiguration.getInstance().getPort(),
 				SIBConfiguration.getInstance().getSmartSpaceName());
@@ -89,7 +86,6 @@ public class Bus extends Thread {
 					Triple.LITERAL).getAsVector());
 			
 			resp = kp.insert(newTripleToInsert);
-			//System.out.println("Point " + i + " inserted");
 			try {
 				Thread.sleep(100);
 			} catch (InterruptedException e) {

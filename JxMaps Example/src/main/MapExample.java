@@ -49,23 +49,6 @@ public class MapExample extends MapView {
                     map.setZoom(13.0);                          
                 }
     
-               /* 
-        		try {
-        			
-                    Marker m = addMarker(points.get(0));
-                    addPolyline(points, "#e60000");                                     
-                    int size = points.size();
-                    
-                    for (int i = 0; i < size; i++) {
-                    	Thread.sleep(50);
-                    	moveMarker(m, points.get(i));
-                    	
-                    }
-        		} catch (IOException | InterruptedException e) {
-        			// TODO Auto-generated catch block
-        			e.printStackTrace();
-        		}
-                */
             }
         });
     }
