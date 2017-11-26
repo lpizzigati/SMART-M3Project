@@ -140,7 +140,7 @@ public class MapExample extends MapView {
     public void moveMarker(Marker m, LatLng ll) {
     	m.setPosition(ll);
     }
-
+/*
     public static void main(String[] args) throws InterruptedException, ParserConfigurationException, SAXException, IOException {
         final MapExample sample = new MapExample();
 
@@ -154,5 +154,5 @@ public class MapExample extends MapView {
         frame.setResizable(false);
 		new Bus("Mario").start();
     }
-
+*/
 }

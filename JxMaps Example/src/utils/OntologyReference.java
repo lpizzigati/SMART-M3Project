@@ -12,8 +12,14 @@ public class OntologyReference {
 	public static final String NS = "http://project/IoES1718#";
 	
 	public static final String BUS = NS + "Bus";
+	public static final String HAS_LOCATION_DATA = NS + "hasLocatioData";
+	
+	
+	public static final String LOCATION_DATA = NS + "LocationData";
 	public static final String HAS_LAT = NS + "hasLat";
 	public static final String HAS_LON = NS + "hasLon";
+	
+	
 
 	
 }
