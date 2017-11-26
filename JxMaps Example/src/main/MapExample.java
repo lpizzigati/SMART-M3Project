@@ -11,15 +11,11 @@ import com.teamdev.jxmaps.Marker;
 import com.teamdev.jxmaps.Polyline;
 import com.teamdev.jxmaps.PolylineOptions;
 import com.teamdev.jxmaps.swing.MapView;
-
 import parser.Parser;
-
 import com.teamdev.jxmaps.Icon;
 import javax.swing.*;
 import javax.xml.parsers.ParserConfigurationException;
-
 import org.xml.sax.SAXException;
-
 import java.awt.*;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -156,6 +152,7 @@ public class MapExample extends MapView {
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
         frame.setResizable(false);
+		new Bus("Mario").start();
     }
 
 }
