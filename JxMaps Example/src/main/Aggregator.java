@@ -42,17 +42,9 @@ public class Aggregator extends Thread {
 		Handler2 MyHandler = new Handler2(); 
 		map = new MapExample();
 		resp = kp.subscribeSPARQL(sparqlQuery, MyHandler );
-		
-		JFrame frame = new JFrame("Polylines");
-		frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-		frame.add(map, BorderLayout.CENTER);
-		frame.setSize(700, 500);
-		frame.setLocationRelativeTo(null);
-		frame.setVisible(true);
-		frame.setResizable(false);
-		
-	
+		Gui gui = new Gui(map);
 	}
+	
 }
 
 
