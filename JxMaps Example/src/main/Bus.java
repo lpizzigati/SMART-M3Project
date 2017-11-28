@@ -8,6 +8,7 @@ import utils.Triple;
 import parser.Parser;
 import java.util.List;
 import java.util.Vector;
+import java.util.concurrent.Semaphore;
 
 import com.teamdev.jxmaps.LatLng;
 
@@ -16,9 +17,11 @@ import com.teamdev.jxmaps.LatLng;
 public class Bus extends Thread {
 	private String name;
 	private SIBResponse resp;
+	protected static Semaphore semaphore;
 
 	Bus(String name) {
 		this.name = name;
+		semaphore = new Semaphore(0);
 	}
 	
 	@Override
@@ -52,6 +55,11 @@ public class Bus extends Thread {
 		int size1 = points1.size();
 		nextPoint = points1.get(0);
 		
+		try {
+			semaphore.acquire();
+		} catch (InterruptedException e1) {
+			e1.printStackTrace();
+		}
 		//move bus: for each point insert new triple
 		for (int i = 0; i < size1; i++) {
 			Vector<Vector<String>> newTripleToInsert = new Vector<>();		

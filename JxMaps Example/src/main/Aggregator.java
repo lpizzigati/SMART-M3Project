@@ -26,7 +26,7 @@ public class Aggregator extends Thread {
 
 	@Override
 	public void run() {
-		map = new MapExample();
+		
 		if(!kp.join().isConfirmed())
 			System.err.println ("Error joining the SIB");
 		else
@@ -40,8 +40,9 @@ public class Aggregator extends Thread {
 					+ "?ld <" + OntologyReference.HAS_LON + "> ?lo"
 				+ " }";			
 		Handler2 MyHandler = new Handler2(); 
+		map = new MapExample();
 		resp = kp.subscribeSPARQL(sparqlQuery, MyHandler );
-
+		
 		JFrame frame = new JFrame("Polylines");
 		frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		frame.add(map, BorderLayout.CENTER);
