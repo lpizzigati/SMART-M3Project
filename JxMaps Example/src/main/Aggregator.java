@@ -17,9 +17,9 @@ public class Aggregator extends Thread {
 	private MapExample map;
 
 		
-	public Aggregator(String busName) {
+	public Aggregator(String busName, MapExample map) {
 		this.busName = busName;
-		map = new MapExample();
+		this.map = map;
 		kp = new KPICore(SIBConfiguration.getInstance().getHost(),
 					SIBConfiguration.getInstance().getPort(),
 					SIBConfiguration.getInstance().getSmartSpaceName());
