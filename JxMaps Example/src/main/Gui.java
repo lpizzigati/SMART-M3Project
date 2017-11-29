@@ -12,7 +12,7 @@ public class Gui extends JFrame{
 		JFrame frame = new JFrame("Polylines");
 		frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		frame.add(map, BorderLayout.CENTER);
-		frame.setSize(700, 500);
+		frame.setSize(1400, 1000);
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
 		frame.setResizable(false);

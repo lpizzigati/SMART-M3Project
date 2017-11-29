@@ -45,7 +45,7 @@ public class Bus extends Thread {
 				Triple.URI).isConfirmed())
 			System.err.println ("Error inserting bus");
 		else
-			System.out.println ("Bus correctly inserted");
+			System.out.println ("Bus correctly inserted " + name);
 		
 		//get list of stops
 		Parser p1;
