@@ -17,11 +17,9 @@ import com.teamdev.jxmaps.LatLng;
 public class Bus extends Thread {
 	private String name;
 	private SIBResponse resp;
-	protected static Semaphore semaphore;
 
 	Bus(String name) {
 		this.name = name;
-		semaphore = new Semaphore(0);
 	}
 	
 	@Override
@@ -55,45 +53,80 @@ public class Bus extends Thread {
 		int size1 = points1.size();
 		nextPoint = points1.get(0);
 		
-		try {
-			semaphore.acquire();
-		} catch (InterruptedException e1) {
-			e1.printStackTrace();
-		}
+		
 		//move bus: for each point insert new triple
-		for (int i = 0; i < size1; i++) {
-			Vector<Vector<String>> newTripleToInsert = new Vector<>();		
+		
+		String locationDataName = name + "LocationData";
+		Vector<Vector<String>> newTripleToInsert = new Vector<>();
+		Vector<Vector<String>> oldTriple = new Vector<>();
+		nextPoint = points1.get(0);
+		
+		Vector<String> locationData = new Triple(
+				OntologyReference.NS + locationDataName,
+				OntologyReference.RDF_TYPE,
+				OntologyReference.LOCATION_DATA,
+				Triple.URI,
+				Triple.URI).getAsVector();
+		
+		newTripleToInsert.add(locationData);
+		
+		Vector<String> busLocationDataArch = new Triple(
+				OntologyReference.NS + name,
+				OntologyReference.HAS_LOCATION_DATA,
+				OntologyReference.NS + locationDataName,
+				Triple.URI,
+				Triple.URI).getAsVector();
+		
+		newTripleToInsert.add(busLocationDataArch);
+		
+		newTripleToInsert.add(new Triple(
+				OntologyReference.NS + locationDataName,
+				OntologyReference.HAS_LAT,
+				String.valueOf(nextPoint.getLat()),
+				Triple.URI,
+				Triple.LITERAL).getAsVector());
+		
+		newTripleToInsert.add(new Triple(
+				OntologyReference.NS + locationDataName,
+				OntologyReference.HAS_LON,
+				String.valueOf(nextPoint.getLng()),
+				Triple.URI,
+				Triple.LITERAL).getAsVector());
+		
+		resp = kp.insert(newTripleToInsert);
+		
+		newTripleToInsert.remove(locationData);
+		newTripleToInsert.remove(busLocationDataArch);
+		
+		oldTriple = newTripleToInsert;
+		
+		try {
+			Thread.sleep(100);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		
+		for (int i = 1; i < size1; i++) {
 			nextPoint = points1.get(i);
-			
+			newTripleToInsert = new Vector<>();
+
 			newTripleToInsert.add(new Triple(
-					OntologyReference.NS + name +"locationData"+i,
-					OntologyReference.RDF_TYPE,
-					OntologyReference.LOCATION_DATA,
-					Triple.URI,
-					Triple.URI).getAsVector());
-			
-			newTripleToInsert.add(new Triple(
-					OntologyReference.NS + name,
-					OntologyReference.HAS_LOCATION_DATA,
-					OntologyReference.NS + name +"locationData"+i,
-					Triple.URI,
-					Triple.URI).getAsVector());
-			
-			newTripleToInsert.add(new Triple(
-					OntologyReference.NS + name +"locationData"+ i,
+					OntologyReference.NS + locationDataName,
 					OntologyReference.HAS_LAT,
 					String.valueOf(nextPoint.getLat()),
 					Triple.URI,
 					Triple.LITERAL).getAsVector());
 			
 			newTripleToInsert.add(new Triple(
-					OntologyReference.NS + name +"locationData"+ i,
+					OntologyReference.NS + locationDataName,
 					OntologyReference.HAS_LON,
 					String.valueOf(nextPoint.getLng()),
 					Triple.URI,
 					Triple.LITERAL).getAsVector());
 			
-			resp = kp.insert(newTripleToInsert);
+			resp = kp.update(newTripleToInsert, oldTriple);
+			
+			oldTriple = newTripleToInsert;
 			try {
 				Thread.sleep(100);
 			} catch (InterruptedException e) {

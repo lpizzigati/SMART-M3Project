@@ -40,8 +40,16 @@ public class Aggregator extends Thread {
 					+ "?ld <" + OntologyReference.HAS_LAT + "> ?la ."
 					+ "?ld <" + OntologyReference.HAS_LON + "> ?lo"
 				+ " }";			
-		Handler2 MyHandler = new Handler2(map); 
-		//map = new MapExample();
+		
+		Handler2 MyHandler = new Handler2(map);  
+		map = new MapExample();
+		try {
+			map.getSemaphore().acquire();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 		resp = kp.subscribeSPARQL(sparqlQuery, MyHandler );
 		//Gui gui = new Gui(map);
 	}
