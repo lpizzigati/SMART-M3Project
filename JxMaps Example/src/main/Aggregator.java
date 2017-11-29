@@ -41,6 +41,12 @@ public class Aggregator extends Thread {
 				+ " }";			
 		Handler2 MyHandler = new Handler2(); 
 		map = new MapExample();
+		try {
+			map.getSemaphore().acquire();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		resp = kp.subscribeSPARQL(sparqlQuery, MyHandler );
 		Gui gui = new Gui(map);
 	}

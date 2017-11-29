@@ -16,16 +16,19 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.List;
+import java.util.concurrent.Semaphore;
 
 
 public class MapExample extends MapView {
 	
 	private static final long serialVersionUID = -2877189569097540460L;
 	private Map map;
+	private Semaphore s;
     public MapExample() {
         // Setting of a ready handler to MapView object. onMapReady will be called when map initialization is done and
         // the map object is ready to use. Current implementation of onMapReady customizes the map object.
-       
+    	s = new Semaphore(0);
+    	
     	setOnMapReadyHandler(new MapReadyHandler() {
             @Override
             public void onMapReady(MapStatus status) {
@@ -48,7 +51,7 @@ public class MapExample extends MapView {
                     // Setting initial zoom value
                     map.setZoom(13.0);      
                     
-                    Bus.semaphore.release();        
+                    s.release();        
                 }
     
             }
@@ -94,5 +97,9 @@ public class MapExample extends MapView {
     
     public void moveMarker(Marker m, LatLng ll) {
     	m.setPosition(ll);
+    }
+    
+    public Semaphore getSemaphore() {
+    	return s;
     }
 }
