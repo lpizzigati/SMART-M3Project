@@ -59,6 +59,7 @@ public class Handler2 implements iKPIC_subscribeHandler2 {
 				try {
 					if (Integer.parseInt(indSequence) == 1) {
 						LatLng point = new LatLng(Double.parseDouble(lat),Double.parseDouble(lon));
+						map.getMap().setCenter(point);
 						m = map.addMarker(point);
 					}
 					else 

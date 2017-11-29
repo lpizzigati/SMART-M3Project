@@ -47,7 +47,7 @@ public class MapExample extends MapView {
                     // Setting map options
                     map.setOptions(mapOptions);
                     // Setting the map center
-                    map.setCenter(new LatLng(44.4989010, 11.3555960));
+                    //map.setCenter(new LatLng(44.489424, 11.331845));
                     // Setting initial zoom value
                     map.setZoom(13.0);      
                     
