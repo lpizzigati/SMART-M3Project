@@ -16,7 +16,7 @@ import sofia_kp.iKPIC_subscribeHandler2;
 
 public class Handler2 implements iKPIC_subscribeHandler2 {
 
-	private static Marker m;
+	private Marker m;
 	private MapExample map;
 	
 	public Handler2(MapExample map) {

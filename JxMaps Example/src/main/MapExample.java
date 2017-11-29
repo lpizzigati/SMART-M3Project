@@ -51,7 +51,8 @@ public class MapExample extends MapView {
                     // Setting initial zoom value
                     map.setZoom(13.0);      
                     
-                    s.release();        
+                    s.release(); 
+                    s.release();
                 }
     
             }

@@ -1,16 +1,16 @@
 package main;
 
+import java.util.List;
+import java.util.Vector;
+
+import com.teamdev.jxmaps.LatLng;
+
+import parser.Parser;
 import sofia_kp.KPICore;
 import sofia_kp.SIBResponse;
 import utils.OntologyReference;
 import utils.SIBConfiguration;
 import utils.Triple;
-import parser.Parser;
-import java.util.List;
-import java.util.Vector;
-import java.util.concurrent.Semaphore;
-
-import com.teamdev.jxmaps.LatLng;
 
 
 

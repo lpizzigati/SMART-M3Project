@@ -8,13 +8,14 @@ public class Main {
 		Gui gui = new Gui(map);	
 		
 		Aggregator aggregator = new Aggregator("BUS32", map);
-		aggregator.run();
+		aggregator.start();
 		
 		Aggregator aggregator2 = new Aggregator("BUS33", map);
-		aggregator2.run();
+		aggregator2.start();
 				
-		new Bus("BUS33", "gpx/path2.gpx").run();
-		new Bus("BUS32", "gpx/32.gpx").run();
+		new Bus("BUS32", "gpx/32.gpx").start();
+		new Bus("BUS33", "gpx/path2.gpx").start();
+		
 
 		
 	}

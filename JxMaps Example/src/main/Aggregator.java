@@ -42,7 +42,6 @@ public class Aggregator extends Thread {
 				+ " }";			
 		
 		Handler2 MyHandler = new Handler2(map);  
-		map = new MapExample();
 		try {
 			map.getSemaphore().acquire();
 		} catch (InterruptedException e) {
