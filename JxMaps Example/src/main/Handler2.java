@@ -17,8 +17,10 @@ import sofia_kp.iKPIC_subscribeHandler2;
 public class Handler2 implements iKPIC_subscribeHandler2 {
 
 	private static Marker m;
+	private MapExample map;
 	
-	public Handler2() {
+	public Handler2(MapExample map) {
+		this.map = map;
 		
 	}
 
@@ -57,10 +59,10 @@ public class Handler2 implements iKPIC_subscribeHandler2 {
 				try {
 					if (Integer.parseInt(indSequence) == 1) {
 						LatLng point = new LatLng(Double.parseDouble(lat),Double.parseDouble(lon));
-						m = Aggregator.map.addMarker(point);
+						m = map.addMarker(point);
 					}
 					else 
-						Aggregator.map.moveMarker(m, new LatLng(Double.parseDouble(lat),Double.parseDouble(lon)));
+						map.moveMarker(m, new LatLng(Double.parseDouble(lat),Double.parseDouble(lon)));
 				} catch (NumberFormatException | FileNotFoundException e) {
 					e.printStackTrace();
 				}

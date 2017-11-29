@@ -14,11 +14,12 @@ public class Aggregator extends Thread {
 	private String busName;
 	private KPICore kp;
 	private SIBResponse resp;
-	public static MapExample map;
+	private MapExample map;
 
 		
 	public Aggregator(String busName) {
 		this.busName = busName;
+		map = new MapExample();
 		kp = new KPICore(SIBConfiguration.getInstance().getHost(),
 					SIBConfiguration.getInstance().getPort(),
 					SIBConfiguration.getInstance().getSmartSpaceName());
@@ -39,12 +40,15 @@ public class Aggregator extends Thread {
 					+ "?ld <" + OntologyReference.HAS_LAT + "> ?la ."
 					+ "?ld <" + OntologyReference.HAS_LON + "> ?lo"
 				+ " }";			
-		Handler2 MyHandler = new Handler2(); 
-		map = new MapExample();
+		Handler2 MyHandler = new Handler2(map); 
+		//map = new MapExample();
 		resp = kp.subscribeSPARQL(sparqlQuery, MyHandler );
-		Gui gui = new Gui(map);
+		//Gui gui = new Gui(map);
 	}
 	
+	public MapExample getMap() {
+		return map;
+	}
 }
 
 
