@@ -17,9 +17,11 @@ import com.teamdev.jxmaps.LatLng;
 public class Bus extends Thread {
 	private String name;
 	private SIBResponse resp;
+	private String filename; 
 
-	Bus(String name) {
+	Bus(String name, String filename) {
 		this.name = name;
+		this.filename = filename;
 	}
 	
 	@Override
@@ -48,7 +50,7 @@ public class Bus extends Thread {
 		//get list of stops
 		Parser p1;
     	List<LatLng> points1;
-    	p1 = new Parser("./gpx/32.gpx");
+    	p1 = new Parser(filename);
 		points1 = p1.getListOfPoint();
 		int size1 = points1.size();
 		nextPoint = points1.get(0);
