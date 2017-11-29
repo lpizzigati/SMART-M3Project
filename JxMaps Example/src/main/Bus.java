@@ -6,6 +6,7 @@ import java.util.Vector;
 import com.teamdev.jxmaps.LatLng;
 
 import parser.Parser;
+import simulationConfiguration.SimulationConfig;
 import sofia_kp.KPICore;
 import sofia_kp.SIBResponse;
 import utils.OntologyReference;
@@ -130,7 +131,7 @@ public class Bus extends Thread {
 			
 			oldTriple = newTripleToInsert;
 			try {
-				Thread.sleep(100);
+				Thread.sleep(Math.round(100/SimulationConfig.getInstance().getSimulationVelocity()));
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
