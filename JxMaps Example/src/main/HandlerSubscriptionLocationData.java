@@ -14,12 +14,12 @@ import sofia_kp.SSAP_sparql_response;
 import sofia_kp.iKPIC_subscribeHandler2;
 
 
-public class Handler2 implements iKPIC_subscribeHandler2 {
+public class HandlerSubscriptionLocationData implements iKPIC_subscribeHandler2 {
 
 	private Marker m;
 	private MapExample map;
 	
-	public Handler2(MapExample map) {
+	public HandlerSubscriptionLocationData(MapExample map) {
 		this.map = map;
 		
 	}

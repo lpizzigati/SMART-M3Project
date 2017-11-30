@@ -17,7 +17,6 @@ import utils.Triple;
 
 public class Bus extends Thread {
 	private String name;
-	private SIBResponse resp;
 	private String filename; 
 
 	Bus(String name, String filename) {

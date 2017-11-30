@@ -41,7 +41,7 @@ public class Aggregator extends Thread {
 					+ "?ld <" + OntologyReference.HAS_LON + "> ?lo"
 				+ " }";			
 		
-		Handler2 MyHandler = new Handler2(map);  
+		HandlerSubscriptionLocationData MyHandler = new HandlerSubscriptionLocationData(map);  
 		try {
 			map.waitForMap();
 		} catch (InterruptedException e) {
