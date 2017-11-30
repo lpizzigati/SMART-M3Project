@@ -8,7 +8,6 @@ import com.teamdev.jxmaps.LatLng;
 import parser.Parser;
 import simulationConfiguration.SimulationConfig;
 import sofia_kp.KPICore;
-import sofia_kp.SIBResponse;
 import utils.OntologyReference;
 import utils.SIBConfiguration;
 import utils.Triple;
@@ -95,7 +94,7 @@ public class Bus extends Thread {
 				Triple.URI,
 				Triple.LITERAL).getAsVector());
 		
-		resp = kp.insert(newTripleToInsert);
+		kp.insert(newTripleToInsert);
 		
 		newTripleToInsert.remove(locationData);
 		newTripleToInsert.remove(busLocationDataArch);
@@ -126,7 +125,7 @@ public class Bus extends Thread {
 					Triple.URI,
 					Triple.LITERAL).getAsVector());
 			
-			resp = kp.update(newTripleToInsert, oldTriple);
+			kp.update(newTripleToInsert, oldTriple);
 			
 			oldTriple = newTripleToInsert;
 			try {
