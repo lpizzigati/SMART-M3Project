@@ -20,7 +20,7 @@ import java.util.concurrent.Semaphore;
 
 
 @SuppressWarnings("serial")
-public class BusMap extends MapView {
+public class BusMap extends MapView implements MapReadyHandler{
 	
 	private Map map;
 	private Semaphore s;
@@ -29,33 +29,7 @@ public class BusMap extends MapView {
         // the map object is ready to use. Current implementation of onMapReady customizes the map object.
     	s = new Semaphore(0);
     	
-    	setOnMapReadyHandler(new MapReadyHandler() {
-            @Override
-            public void onMapReady(MapStatus status) {
-                // Check if the map is loaded correctly
-                if (status == MapStatus.MAP_STATUS_OK) {
-                    // Getting the associated map object
-                    map = getMap();
-                    // Creating a map options object
-                    MapOptions mapOptions = new MapOptions();
-                    // Creating a map type control options object
-                    MapTypeControlOptions controlOptions = new MapTypeControlOptions();
-                    // Changing position of the map type control
-                    controlOptions.setPosition(ControlPosition.TOP_RIGHT);
-                    // Setting map type control options
-                    mapOptions.setMapTypeControlOptions(controlOptions);
-                    // Setting map options
-                    map.setOptions(mapOptions);
-                    // Setting the map center
-                    map.setCenter(new LatLng(44.493889, 11.342778));
-                    // Setting initial zoom value
-                    map.setZoom(14.0);      
-                    
-                    s.release(); 
-                }
-    
-            }
-        });
+    	setOnMapReadyHandler(this);
     }
     
     public void addBusline(List<LatLng> points , String color) {
@@ -102,5 +76,29 @@ public class BusMap extends MapView {
     public void waitForMap() throws InterruptedException {
     	s.acquire();
     	s.release();
+    }
+    
+    public void onMapReady(MapStatus status) {
+        // Check if the map is loaded correctly
+        if (status == MapStatus.MAP_STATUS_OK) {
+            // Getting the associated map object
+            map = getMap();
+            // Creating a map options object
+            MapOptions mapOptions = new MapOptions();
+            // Creating a map type control options object
+            MapTypeControlOptions controlOptions = new MapTypeControlOptions();
+            // Changing position of the map type control
+            controlOptions.setPosition(ControlPosition.TOP_RIGHT);
+            // Setting map type control options
+            mapOptions.setMapTypeControlOptions(controlOptions);
+            // Setting map options
+            map.setOptions(mapOptions);
+            // Setting the map center
+            map.setCenter(new LatLng(44.493889, 11.342778));
+            // Setting initial zoom value
+            map.setZoom(14.0);      
+            
+            s.release(); 
+        }
     }
 }
