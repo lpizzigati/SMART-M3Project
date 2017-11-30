@@ -19,9 +19,9 @@ import java.util.List;
 import java.util.concurrent.Semaphore;
 
 
+@SuppressWarnings("serial")
 public class MapExample extends MapView {
 	
-	private static final long serialVersionUID = -2877189569097540460L;
 	private Map map;
 	private Semaphore s;
     public MapExample() {
@@ -47,9 +47,9 @@ public class MapExample extends MapView {
                     // Setting map options
                     map.setOptions(mapOptions);
                     // Setting the map center
-                    //map.setCenter(new LatLng(44.489424, 11.331845));
+                    map.setCenter(new LatLng(44.493889, 11.342778));
                     // Setting initial zoom value
-                    map.setZoom(13.0);      
+                    map.setZoom(14.0);      
                     
                     s.release(); 
                 }
