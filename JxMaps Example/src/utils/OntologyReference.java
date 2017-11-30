@@ -55,16 +55,4 @@ public class OntologyReference {
 	
 	//SensorType class
 	public static final String SENSOR_TYPE = NS + "SensorType";
-
-
-
-
-	
-	
-	
-	
-	
-	
-	
-
 }
