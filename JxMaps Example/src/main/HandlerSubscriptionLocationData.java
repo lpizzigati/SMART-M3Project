@@ -54,12 +54,9 @@ public class HandlerSubscriptionLocationData implements iKPIC_subscribeHandler2 
 				System.out.println("Location data:" + riga.get(0)[2] + "has lat: " + riga.get(1)[2]+ " has lon: " + riga.get(2)[2]); 	
 				String lat = riga.get(1)[2]+"0";
 				String lon = riga.get(2)[2]+"0";
-			//	System.out.println(lat + " " + lon);
-				//Main.points.add(new LatLng(Double.parseDouble(lat),Double.parseDouble(lon)));
 				try {
 					if (Integer.parseInt(indSequence) == 1) {
 						LatLng point = new LatLng(Double.parseDouble(lat),Double.parseDouble(lon));
-						//map.getMap().setCenter(point);
 						m = map.addBus(point);
 					}
 					else 
