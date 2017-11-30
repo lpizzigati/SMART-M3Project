@@ -99,13 +99,8 @@ public class MapExample extends MapView {
     	m.setPosition(ll);
     }
     
-    public void waitForMap() {
-    	try {
-			s.acquire();
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+    public void waitForMap() throws InterruptedException {
+    	s.acquire();
     	s.release();
     }
 }
