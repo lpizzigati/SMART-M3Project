@@ -7,7 +7,7 @@ public class OntologyReference {
 	private static final String RDF = "http://www.w3.org/1999/02/22-rdf-syntax-ns#";
 	public static final String RDF_TYPE = RDF + "type";
 	
-	//nsamespace
+	//namespace
 	public static final String NS = "http://project/IoES1718#";
 	
 	//bus class with its properties
