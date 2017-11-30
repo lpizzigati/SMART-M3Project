@@ -82,7 +82,7 @@ public class SimConfigurationFrame extends JFrame {
 			new Bus("BUS20", "gpx/bus20.gpx").start();
 		}
 		new BusMapFrame(map);	
-		SimulationConfig.getInstance().setSimulationVelocity(2.25);
+		SimulationConfig.getInstance().setSimulationVelocity(1.5);
 		this.dispose();
 	}
 }
