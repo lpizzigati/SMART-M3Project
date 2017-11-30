@@ -18,7 +18,7 @@ public class Bus extends Thread {
 	private String name;
 	private String filename; 
 
-	Bus(String name, String filename) {
+	public Bus(String name, String filename) {
 		this.name = name;
 		this.filename = filename;
 	}

@@ -1,5 +1,6 @@
 package main;
 
+import gui.SimConfigurationFrame;
 import simulationConfiguration.SimulationConfig;
 
 public class Main {
@@ -9,7 +10,7 @@ public class Main {
 		//MapExample map = new MapExample();
 		//Gui gui = new Gui(map);	
 		
-		SimConfiguration configurator = new SimConfiguration();
+		SimConfigurationFrame configurator = new SimConfigurationFrame();
 		configurator.setVisible(true);
 		
 		//SimulationConfig.getInstance().setSimulationVelocity(2.25);
