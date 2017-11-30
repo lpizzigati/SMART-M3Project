@@ -22,7 +22,7 @@ public class SimConfigurationFrame extends JFrame {
 
 	private JPanel contentPane;
 	private BusMap map;
-	private JCheckBox lineNo32CheckBox, lineNo33CheckBox;
+	private JCheckBox lineNo32CheckBox, lineNo20CheckBox;
 	
 	public SimConfigurationFrame() {
 		setTitle("SimConfiguration");
@@ -40,19 +40,21 @@ public class SimConfigurationFrame extends JFrame {
 		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
 		
+		lineNo20CheckBox = new JCheckBox("Line No. 20");
+		lineNo20CheckBox.setSelected(true);
+		GridBagConstraints gbc_lineNo20CheckBox = new GridBagConstraints();
+		gbc_lineNo20CheckBox.insets = new Insets(0, 0, 5, 0);
+		gbc_lineNo20CheckBox.gridx = 0;
+		gbc_lineNo20CheckBox.gridy = 3;
+		contentPane.add(lineNo20CheckBox, gbc_lineNo20CheckBox);
+		
 		lineNo32CheckBox = new JCheckBox("Line No. 32");
+		lineNo32CheckBox.setSelected(true);
 		GridBagConstraints gbc_lineNo32CheckBox = new GridBagConstraints();
 		gbc_lineNo32CheckBox.insets = new Insets(0, 0, 5, 0);
 		gbc_lineNo32CheckBox.gridx = 0;
 		gbc_lineNo32CheckBox.gridy = 2;
 		contentPane.add(lineNo32CheckBox, gbc_lineNo32CheckBox);
-		
-		lineNo33CheckBox = new JCheckBox("Line No. 33");
-		GridBagConstraints gbc_lineNo33CheckBox = new GridBagConstraints();
-		gbc_lineNo33CheckBox.insets = new Insets(0, 0, 5, 0);
-		gbc_lineNo33CheckBox.gridx = 0;
-		gbc_lineNo33CheckBox.gridy = 3;
-		contentPane.add(lineNo33CheckBox, gbc_lineNo33CheckBox);
 		
 		JButton startSimButton = new JButton("START SIM");
 		startSimButton.addActionListener(new ActionListener() {
@@ -74,13 +76,13 @@ public class SimConfigurationFrame extends JFrame {
 			aggregator.start();
 			new Bus("BUS32", "gpx/bus32.gpx").start();
 		}
-		if(lineNo33CheckBox.isSelected()) {
-			BusVisualizerAggregator aggregator2 = new BusVisualizerAggregator("BUS33", map);
+		if(lineNo20CheckBox.isSelected()) {
+			BusVisualizerAggregator aggregator2 = new BusVisualizerAggregator("BUS20", map);
 			aggregator2.start();
-			new Bus("BUS33", "gpx/bus33.gpx").start();
+			new Bus("BUS20", "gpx/bus20.gpx").start();
 		}
 		new BusMapFrame(map);	
-		SimulationConfig.getInstance().setSimulationVelocity(2.25);
+		SimulationConfig.getInstance().setSimulationVelocity(1.5);
 		this.dispose();
 	}
 }

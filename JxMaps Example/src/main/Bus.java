@@ -52,7 +52,6 @@ public class Bus extends Thread {
     	p1 = new Parser(filename);
 		points1 = p1.getListOfPoint();
 		int size1 = points1.size();
-		nextPoint = points1.get(0);
 		
 		
 		//move bus: for each point insert new triple

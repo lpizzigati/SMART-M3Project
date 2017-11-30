@@ -2,7 +2,7 @@ package simulationConfiguration;
 
 public class SimulationConfig {
 
-	private double simulationVelocity;
+	private double simulationVelocity = 1;
 	
 	private static SimulationConfig instance = null;
 	
