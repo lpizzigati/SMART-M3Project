@@ -52,7 +52,6 @@ public class MapExample extends MapView {
                     map.setZoom(13.0);      
                     
                     s.release(); 
-                    s.release();
                 }
     
             }
@@ -100,7 +99,13 @@ public class MapExample extends MapView {
     	m.setPosition(ll);
     }
     
-    public Semaphore getSemaphore() {
-    	return s;
+    public void waitForMap() {
+    	try {
+			s.acquire();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	s.release();
     }
 }
