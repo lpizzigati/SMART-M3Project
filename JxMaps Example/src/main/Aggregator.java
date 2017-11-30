@@ -48,6 +48,8 @@ public class Aggregator extends Thread {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+//		map.waitReady();
+		
 
 		resp = kp.subscribeSPARQL(sparqlQuery, MyHandler );
 		//Gui gui = new Gui(map);
