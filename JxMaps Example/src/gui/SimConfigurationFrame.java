@@ -12,7 +12,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import main.Aggregator;
+import main.BusVisualizerAggregator;
 import main.Bus;
 import main.BusMap;
 import simulationConfiguration.SimulationConfig;
@@ -70,12 +70,12 @@ public class SimConfigurationFrame extends JFrame {
 	public void startSimButtonPressed() {
 		this.map = new BusMap();
 		if(lineNo32CheckBox.isSelected()) {
-			Aggregator aggregator = new Aggregator("BUS32", map);
+			BusVisualizerAggregator aggregator = new BusVisualizerAggregator("BUS32", map);
 			aggregator.start();
 			new Bus("BUS32", "gpx/bus32.gpx").start();
 		}
 		if(lineNo33CheckBox.isSelected()) {
-			Aggregator aggregator2 = new Aggregator("BUS33", map);
+			BusVisualizerAggregator aggregator2 = new BusVisualizerAggregator("BUS33", map);
 			aggregator2.start();
 			new Bus("BUS33", "gpx/bus33.gpx").start();
 		}
