@@ -81,8 +81,6 @@ public class BusMap extends MapView implements MapReadyHandler{
     public void onMapReady(MapStatus status) {
         // Check if the map is loaded correctly
         if (status == MapStatus.MAP_STATUS_OK) {
-            // Getting the associated map object
-            map = getMap();
             // Creating a map options object
             MapOptions mapOptions = new MapOptions();
             // Creating a map type control options object
