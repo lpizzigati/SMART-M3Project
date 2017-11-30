@@ -1,23 +1,17 @@
 package main;
 
-import java.awt.BorderLayout;
-
-import javax.swing.JFrame;
-import javax.swing.WindowConstants;
 import sofia_kp.KPICore;
-import sofia_kp.SIBResponse;
 import utils.OntologyReference;
 import utils.SIBConfiguration;
 
 
-public class Aggregator extends Thread {
+public class BusVisualizerAggregator extends Thread {
 	private String busName;
 	private KPICore kp;
-	private SIBResponse resp;
-	private MapExample map;
+	private BusMap map;
 
 		
-	public Aggregator(String busName, MapExample map) {
+	public BusVisualizerAggregator(String busName, BusMap map) {
 		this.busName = busName;
 		this.map = map;
 		kp = new KPICore(SIBConfiguration.getInstance().getHost(),
@@ -41,7 +35,7 @@ public class Aggregator extends Thread {
 					+ "?ld <" + OntologyReference.HAS_LON + "> ?lo"
 				+ " }";			
 		
-		Handler2 MyHandler = new Handler2(map);  
+		HandlerSubscriptionLocationData MyHandler = new HandlerSubscriptionLocationData(map);  
 		try {
 			map.waitForMap();
 		} catch (InterruptedException e) {
@@ -50,17 +44,22 @@ public class Aggregator extends Thread {
 		}
 //		map.waitReady();
 		
-
-		resp = kp.subscribeSPARQL(sparqlQuery, MyHandler );
-		//Gui gui = new Gui(map);
+		kp.subscribeSPARQL(sparqlQuery, MyHandler );
 	}
 	
-	public MapExample getMap() {
+	public BusMap getMap() {
 		return map;
 	}
 }
 
 
 
-
-//select ?ld ?la ?lo  where { <http://project/IoES1718#BUS32> <http://project/IoES1718#hasLocatioData> ?ld . ?ld <http://project/IoES1718#hasLat> ?la .	?ld  <http://project/IoES1718#hasLon> ?lo }
+/*
+ * subscription query
+ * select ?ld ?la ?lo  
+ * where { 
+ * 	<http://project/IoES1718#BUS32> <http://project/IoES1718#hasLocatioData> ?ld . 
+ * 	?ld <http://project/IoES1718#hasLat> ?la .	
+ * 	?ld  <http://project/IoES1718#hasLon> ?lo 
+ * }
+ */

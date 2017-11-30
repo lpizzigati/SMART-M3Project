@@ -14,12 +14,12 @@ import sofia_kp.SSAP_sparql_response;
 import sofia_kp.iKPIC_subscribeHandler2;
 
 
-public class Handler2 implements iKPIC_subscribeHandler2 {
+public class HandlerSubscriptionLocationData implements iKPIC_subscribeHandler2 {
 
 	private Marker m;
-	private MapExample map;
+	private BusMap map;
 	
-	public Handler2(MapExample map) {
+	public HandlerSubscriptionLocationData(BusMap map) {
 		this.map = map;
 		
 	}
@@ -60,10 +60,10 @@ public class Handler2 implements iKPIC_subscribeHandler2 {
 					if (Integer.parseInt(indSequence) == 1) {
 						LatLng point = new LatLng(Double.parseDouble(lat),Double.parseDouble(lon));
 						//map.getMap().setCenter(point);
-						m = map.addMarker(point);
+						m = map.addBus(point);
 					}
 					else 
-						map.moveMarker(m, new LatLng(Double.parseDouble(lat),Double.parseDouble(lon)));
+						map.moveBus(m, new LatLng(Double.parseDouble(lat),Double.parseDouble(lon)));
 				} catch (NumberFormatException | FileNotFoundException e) {
 					e.printStackTrace();
 				}
