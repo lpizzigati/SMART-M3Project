@@ -20,11 +20,11 @@ import java.util.concurrent.Semaphore;
 
 
 @SuppressWarnings("serial")
-public class MapExample extends MapView {
+public class BusMap extends MapView {
 	
 	private Map map;
 	private Semaphore s;
-    public MapExample() {
+    public BusMap() {
         // Setting of a ready handler to MapView object. onMapReady will be called when map initialization is done and
         // the map object is ready to use. Current implementation of onMapReady customizes the map object.
     	s = new Semaphore(0);
@@ -58,16 +58,16 @@ public class MapExample extends MapView {
         });
     }
     
-    public void addPolyline(List<LatLng> points , String color) {
+    public void addBusline(List<LatLng> points , String color) {
     	// Creating a path (array of coordinates) that represents a polyline
     	LatLng[] path = new LatLng[points.size()];
     	path = points.toArray(path);
         
-        // Creating a new polyline object
+        // Creating a new busline object
         Polyline polyline = new Polyline(map);
-        // Initializing the polyline with created path
+        // Initializing the busline with created path
         polyline.setPath(path);
-        // Creating a polyline options object
+        // Creating a busline options object
         PolylineOptions options = new PolylineOptions();
                         
         
@@ -79,11 +79,11 @@ public class MapExample extends MapView {
         options.setStrokeOpacity(1.0);
         // Setting stroke weight value
         options.setStrokeWeight(2.0);
-        // Applying options to the polyline
+        // Applying options to the busline
         polyline.setOptions(options);
     }
     
-    public Marker addMarker(LatLng ll) throws FileNotFoundException {
+    public Marker addBus(LatLng ll) throws FileNotFoundException {
     	Marker marker = new Marker(map);
     	
     	Icon icon = new Icon();
@@ -95,7 +95,7 @@ public class MapExample extends MapView {
         return marker;
     }
     
-    public void moveMarker(Marker m, LatLng ll) {
+    public void moveBus(Marker m, LatLng ll) {
     	m.setPosition(ll);
     }
     

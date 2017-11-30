@@ -18,7 +18,7 @@ import simulationConfiguration.SimulationConfig;
 public class SimConfiguration extends JFrame {
 
 	private JPanel contentPane;
-	private MapExample map;
+	private BusMap map;
 	private JCheckBox lineNo32CheckBox, lineNo33CheckBox;
 	//private boolean isNo32Asserted, isNo33Asserted;
 
@@ -83,7 +83,7 @@ public class SimConfiguration extends JFrame {
 	}
 	
 	public void startSimButtonPressed() {
-		this.map = new MapExample();
+		this.map = new BusMap();
 		if(lineNo32CheckBox.isSelected()) {
 			Aggregator aggregator = new Aggregator("BUS32", map);
 			aggregator.start();

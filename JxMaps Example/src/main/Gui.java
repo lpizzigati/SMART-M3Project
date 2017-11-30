@@ -8,7 +8,7 @@ import javax.swing.WindowConstants;
 @SuppressWarnings("serial")
 public class Gui extends JFrame{
 	
-	public Gui(MapExample map) {
+	public Gui(BusMap map) {
 		JFrame frame = new JFrame("Polylines");
 		frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		frame.add(map, BorderLayout.CENTER);

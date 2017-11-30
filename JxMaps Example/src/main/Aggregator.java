@@ -14,10 +14,10 @@ public class Aggregator extends Thread {
 	private String busName;
 	private KPICore kp;
 	private SIBResponse resp;
-	private MapExample map;
+	private BusMap map;
 
 		
-	public Aggregator(String busName, MapExample map) {
+	public Aggregator(String busName, BusMap map) {
 		this.busName = busName;
 		this.map = map;
 		kp = new KPICore(SIBConfiguration.getInstance().getHost(),
@@ -55,7 +55,7 @@ public class Aggregator extends Thread {
 		//Gui gui = new Gui(map);
 	}
 	
-	public MapExample getMap() {
+	public BusMap getMap() {
 		return map;
 	}
 }
