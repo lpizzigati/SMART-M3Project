@@ -77,7 +77,7 @@ public class SimConfigurationFrame extends JFrame {
 		if(lineNo33CheckBox.isSelected()) {
 			BusVisualizerAggregator aggregator2 = new BusVisualizerAggregator("BUS33", map);
 			aggregator2.start();
-			new Bus("BUS33", "gpx/bus33.gpx").start();
+			new Bus("BUS33", "gpx/bus20.gpx").start();
 		}
 		new BusMapFrame(map);	
 		SimulationConfig.getInstance().setSimulationVelocity(2.25);
