@@ -1,9 +1,12 @@
 package main;
 
+import java.util.Random;
 import java.util.Vector;
 
 import com.teamdev.jxmaps.LatLng;
+import com.teamdev.jxmaps.Time;
 
+import simulationConfiguration.SimulationConfig;
 import sofia_kp.KPICore;
 import utils.OntologyReference;
 import utils.SIBConfiguration;
@@ -14,11 +17,15 @@ public class BusStop extends Thread {
 	private String name;
 	private String id;
 	private LatLng location;
+	
+	private Random r;
+	
 	public BusStop(String name, String id, LatLng location) {
 		super();
 		this.name = name;
 		this.id = id;
 		this.location = location;
+		r = new Random(System.currentTimeMillis());
 	}
 	
 	@Override
@@ -124,6 +131,9 @@ public class BusStop extends Thread {
 		
 	}
 	
-	
+	private int getWaitingPeople() {
+		int error = (int)Math.round(SimulationConfig.getInstance().getPeopleWaitingAtBusStop() * SimulationConfig.getInstance().getPercErrorPeopleWaitingAtBusStop() / 100.0);
+		return r.nextInt(2 * error) - error + SimulationConfig.getInstance().getPeopleWaitingAtBusStop();
+	}
 	
 }
