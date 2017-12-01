@@ -1,9 +1,13 @@
 package main;
 
+import java.util.Vector;
+
 import com.teamdev.jxmaps.LatLng;
 
 import sofia_kp.KPICore;
+import utils.OntologyReference;
 import utils.SIBConfiguration;
+import utils.Triple;
 
 public class BusStop extends Thread {
 
@@ -20,6 +24,9 @@ public class BusStop extends Thread {
 	@Override
 	public void run() {
 		
+		String sensorName = "BusStop" + name + "Sensor";
+		String locationDataName = "BusStop" + name + "LocationData";
+		
 		KPICore kp = new KPICore(SIBConfiguration.getInstance().getHost(),
 				SIBConfiguration.getInstance().getPort(),
 				SIBConfiguration.getInstance().getSmartSpaceName());
@@ -28,6 +35,92 @@ public class BusStop extends Thread {
 			System.err.println ("Error joining the SIB");
 		else
 			System.out.println ("Bus joined SIB correctly");
+		
+		Vector<Vector<String>> newTripleToInsert = new Vector<>();
+		Vector<Vector<String>> oldTriple = new Vector<>();
+		
+		Vector<String> sensor = new Triple(
+				OntologyReference.NS + sensorName,
+				OntologyReference.RDF_TYPE,
+				OntologyReference.SENSOR,
+				Triple.URI,
+				Triple.URI
+				).getAsVector();
+		newTripleToInsert.add(sensor);
+		
+		Vector<String> locationDataTypeTriple = new Triple(
+				OntologyReference.NS + locationDataName,
+				OntologyReference.RDF_TYPE,
+				OntologyReference.LOCATION_DATA,
+				Triple.URI,
+				Triple.URI
+				).getAsVector();
+		newTripleToInsert.add(locationDataTypeTriple);
+		
+		Vector<String> locationDataLat = new Triple(
+				OntologyReference.NS + locationDataName,
+				OntologyReference.HAS_LAT,
+				location.getLat() + "",
+				Triple.URI,
+				Triple.LITERAL
+				).getAsVector();
+		newTripleToInsert.add(locationDataLat);
+		
+		Vector<String> locationDataLon = new Triple(
+				OntologyReference.NS + locationDataName,
+				OntologyReference.HAS_LON,
+				location.getLng() + "",
+				Triple.URI,
+				Triple.LITERAL
+				).getAsVector();
+		newTripleToInsert.add(locationDataLon);
+		
+		Vector<String> typeTriple = new Triple(
+				OntologyReference.NS + "BusStop" + name,
+				OntologyReference.RDF_TYPE,
+				OntologyReference.BUS_STOP,
+				Triple.URI,
+				Triple.URI
+				).getAsVector();
+		newTripleToInsert.add(typeTriple);
+		
+		Vector<String> tripleId = new Triple(
+				OntologyReference.NS + "BusStop" + name,
+				OntologyReference.HAS_ID,
+				id,
+				Triple.URI,
+				Triple.LITERAL
+				).getAsVector();
+		newTripleToInsert.add(tripleId);
+		
+		Vector<String> tripleName = new Triple(
+				OntologyReference.NS + "BusStop" + name,
+				OntologyReference.HAS_NAME,
+				name,
+				Triple.URI,
+				Triple.LITERAL
+				).getAsVector();
+		newTripleToInsert.add(tripleName);
+		
+		Vector<String> tripleSensor = new Triple(
+				OntologyReference.NS + "BusStop" + name,
+				OntologyReference.HAS_SENSOR,
+				OntologyReference.NS + sensorName,
+				Triple.URI,
+				Triple.URI
+				).getAsVector();
+		newTripleToInsert.add(tripleSensor);
+		
+		Vector<String> tripleLocationData = new Triple(
+				OntologyReference.NS + "BusStop" + name,
+				OntologyReference.HAS_LOCATION_DATA,
+				OntologyReference.NS + locationDataName,
+				Triple.URI,
+				Triple.URI
+				).getAsVector();
+		newTripleToInsert.add(tripleLocationData);
+		
+		
 		
 	}
 	
