@@ -4,7 +4,6 @@ import java.util.Random;
 import java.util.Vector;
 
 import com.teamdev.jxmaps.LatLng;
-import com.teamdev.jxmaps.Time;
 
 import simulationConfiguration.SimulationConfig;
 import sofia_kp.KPICore;
@@ -51,8 +50,7 @@ public class BusStop extends Thread {
 				OntologyReference.RDF_TYPE,
 				OntologyReference.SENSOR,
 				Triple.URI,
-				Triple.URI
-				).getAsVector();
+				Triple.URI).getAsVector();
 		newTripleToInsert.add(sensor);
 		
 		Vector<String> locationDataTypeTriple = new Triple(
@@ -60,8 +58,7 @@ public class BusStop extends Thread {
 				OntologyReference.RDF_TYPE,
 				OntologyReference.LOCATION_DATA,
 				Triple.URI,
-				Triple.URI
-				).getAsVector();
+				Triple.URI).getAsVector();
 		newTripleToInsert.add(locationDataTypeTriple);
 		
 		Vector<String> locationDataLat = new Triple(
@@ -69,8 +66,7 @@ public class BusStop extends Thread {
 				OntologyReference.HAS_LAT,
 				location.getLat() + "",
 				Triple.URI,
-				Triple.LITERAL
-				).getAsVector();
+				Triple.LITERAL).getAsVector();
 		newTripleToInsert.add(locationDataLat);
 		
 		Vector<String> locationDataLon = new Triple(
@@ -78,8 +74,7 @@ public class BusStop extends Thread {
 				OntologyReference.HAS_LON,
 				location.getLng() + "",
 				Triple.URI,
-				Triple.LITERAL
-				).getAsVector();
+				Triple.LITERAL).getAsVector();
 		newTripleToInsert.add(locationDataLon);
 		
 		Vector<String> typeTriple = new Triple(
@@ -87,8 +82,7 @@ public class BusStop extends Thread {
 				OntologyReference.RDF_TYPE,
 				OntologyReference.BUS_STOP,
 				Triple.URI,
-				Triple.URI
-				).getAsVector();
+				Triple.URI).getAsVector();
 		newTripleToInsert.add(typeTriple);
 		
 		Vector<String> tripleId = new Triple(
@@ -96,8 +90,7 @@ public class BusStop extends Thread {
 				OntologyReference.HAS_ID,
 				id,
 				Triple.URI,
-				Triple.LITERAL
-				).getAsVector();
+				Triple.LITERAL).getAsVector();
 		newTripleToInsert.add(tripleId);
 		
 		Vector<String> tripleName = new Triple(
@@ -105,8 +98,7 @@ public class BusStop extends Thread {
 				OntologyReference.HAS_NAME,
 				name,
 				Triple.URI,
-				Triple.LITERAL
-				).getAsVector();
+				Triple.LITERAL).getAsVector();
 		newTripleToInsert.add(tripleName);
 		
 		Vector<String> tripleSensor = new Triple(
@@ -114,8 +106,7 @@ public class BusStop extends Thread {
 				OntologyReference.HAS_SENSOR,
 				OntologyReference.NS + sensorName,
 				Triple.URI,
-				Triple.URI
-				).getAsVector();
+				Triple.URI).getAsVector();
 		newTripleToInsert.add(tripleSensor);
 		
 		Vector<String> tripleLocationData = new Triple(
@@ -123,10 +114,49 @@ public class BusStop extends Thread {
 				OntologyReference.HAS_LOCATION_DATA,
 				OntologyReference.NS + locationDataName,
 				Triple.URI,
-				Triple.URI
-				).getAsVector();
+				Triple.URI).getAsVector();
 		newTripleToInsert.add(tripleLocationData);
 		
+		newTripleToInsert.add(new Triple(OntologyReference.NS + name,
+				OntologyReference.HAS_WAITING_PERSON,
+				getWaitingPeople() + "",
+				Triple.URI,
+				Triple.LITERAL).getAsVector());
+		
+		kp.insert(newTripleToInsert);
+
+		newTripleToInsert.remove(sensor);
+		newTripleToInsert.remove(locationDataTypeTriple);
+		newTripleToInsert.remove(locationDataLat);
+		newTripleToInsert.remove(locationDataLon);
+		newTripleToInsert.remove(typeTriple);
+		newTripleToInsert.remove(tripleId);
+		newTripleToInsert.remove(tripleName);
+		newTripleToInsert.remove(tripleSensor);
+		newTripleToInsert.remove(tripleLocationData);
+		
+		oldTriple = newTripleToInsert;
+		
+		for(;;) {
+			
+			newTripleToInsert = new Vector<>();
+			
+			newTripleToInsert.add(new Triple(OntologyReference.NS + name,
+					OntologyReference.HAS_WAITING_PERSON,
+					getWaitingPeople() + "",
+					Triple.URI,
+					Triple.LITERAL).getAsVector());
+			
+			kp.update(newTripleToInsert, oldTriple);
+			oldTriple = newTripleToInsert;
+			
+			try {
+				sleep(1000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 		
 		
 	}
@@ -135,5 +165,5 @@ public class BusStop extends Thread {
 		int error = (int)Math.round(SimulationConfig.getInstance().getPeopleWaitingAtBusStop() * SimulationConfig.getInstance().getPercErrorPeopleWaitingAtBusStop() / 100.0);
 		return r.nextInt(2 * error) - error + SimulationConfig.getInstance().getPeopleWaitingAtBusStop();
 	}
-	
+		
 }
