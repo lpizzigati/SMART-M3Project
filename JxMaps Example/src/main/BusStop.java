@@ -163,7 +163,7 @@ public class BusStop extends Thread {
 	
 	private int getWaitingPeople() {
 		int error = (int)Math.round(SimulationConfig.getInstance().getPeopleWaitingAtBusStop() * SimulationConfig.getInstance().getPercErrorPeopleWaitingAtBusStop() / 100.0);
-		return r.nextInt(2 * error) - error + SimulationConfig.getInstance().getPeopleWaitingAtBusStop();
+		return r.nextInt(2 * error + 1) - error + SimulationConfig.getInstance().getPeopleWaitingAtBusStop();
 	}
 		
 }
