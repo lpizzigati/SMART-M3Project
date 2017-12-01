@@ -3,8 +3,8 @@ package simulationConfiguration;
 public class SimulationConfig {
 
 	private double simulationVelocity = 1;
-	private int peopleAtBusStop = 0;
-	private int percErrorPeopleAtBusStop = 0;
+	private int peopleWaitingAtBusStop = 0;
+	private int percErrorPeopleWaitingAtBusStop = 0;
 	
 	private static SimulationConfig instance = null;
 	
@@ -24,20 +24,20 @@ public class SimulationConfig {
 		this.simulationVelocity = simulationVelocity;
 	}
 
-	public int getPeopleAtBusStop() {
-		return peopleAtBusStop;
+	public int getPeopleWaitingAtBusStop() {
+		return peopleWaitingAtBusStop;
 	}
 
-	public void setPeopleAtBusStop(int peopleAtBusStop) {
-		this.peopleAtBusStop = peopleAtBusStop;
+	public void setPeopleWaitingAtBusStop(int peopleAtBusStop) {
+		this.peopleWaitingAtBusStop = peopleAtBusStop;
 	}
 
-	public int getPercErrorPeopleAtBusStop() {
-		return percErrorPeopleAtBusStop;
+	public int getPercErrorPeopleWaitingAtBusStop() {
+		return percErrorPeopleWaitingAtBusStop;
 	}
 
-	public void setPercErrorPeopleAtBusStop(int percErrorPeopleAtBusStop) {
-		this.percErrorPeopleAtBusStop = percErrorPeopleAtBusStop;
+	public void setPercErrorPeopleWaitingAtBusStop(int percErrorPeopleAtBusStop) {
+		this.percErrorPeopleWaitingAtBusStop = percErrorPeopleAtBusStop;
 	}
 	
 }
