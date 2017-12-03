@@ -21,7 +21,7 @@ import simulationConfiguration.SimulationConfig;
 public class SimConfigurationFrame extends JFrame {
 
 	private JPanel contentPane;
-	private BusMap map;
+	private BusMap busMap;
 	private JCheckBox lineNo32CheckBox, lineNo20CheckBox;
 	
 	public SimConfigurationFrame() {
@@ -70,18 +70,18 @@ public class SimConfigurationFrame extends JFrame {
 	}
 	
 	public void startSimButtonPressed() {
-		this.map = new BusMap();
+		this.busMap = new BusMap();
 		if(lineNo32CheckBox.isSelected()) {
-			BusVisualizerAggregator aggregator = new BusVisualizerAggregator("BUS32", map);
+			BusVisualizerAggregator aggregator = new BusVisualizerAggregator("BUS32", busMap);
 			aggregator.start();
 			new Bus("BUS32", "gpx/bus32.gpx").start();
 		}
 		if(lineNo20CheckBox.isSelected()) {
-			BusVisualizerAggregator aggregator2 = new BusVisualizerAggregator("BUS20", map);
+			BusVisualizerAggregator aggregator2 = new BusVisualizerAggregator("BUS20", busMap);
 			aggregator2.start();
 			new Bus("BUS20", "gpx/bus20.gpx").start();
 		}
-		new BusMapFrame(map);	
+		new BusMapFrame(busMap);	
 		SimulationConfig.getInstance().setSimulationVelocity(1.5);
 		this.dispose();
 	}
