@@ -9,7 +9,6 @@ import java.util.concurrent.Semaphore;
 import com.teamdev.jxmaps.ControlPosition;
 import com.teamdev.jxmaps.Icon;
 import com.teamdev.jxmaps.LatLng;
-import com.teamdev.jxmaps.Map;
 import com.teamdev.jxmaps.MapOptions;
 import com.teamdev.jxmaps.MapStatus;
 import com.teamdev.jxmaps.MapTypeControlOptions;
@@ -22,7 +21,6 @@ import com.teamdev.jxmaps.swing.MapView;
 @SuppressWarnings("serial")
 public class BusMap extends MapView{
 	
-	private Map map;
 	private Semaphore s;
     public BusMap() {
         // Setting of a ready handler to MapView object. onMapReady will be called when map initialization is done and
@@ -38,7 +36,7 @@ public class BusMap extends MapView{
     	path = points.toArray(path);
         
         // Creating a new busline object
-        Polyline polyline = new Polyline(map);
+        Polyline polyline = new Polyline(getMap());
         // Initializing the busline with created path
         polyline.setPath(path);
         // Creating a busline options object
@@ -58,7 +56,7 @@ public class BusMap extends MapView{
     }
     
     public Marker addBus(LatLng ll) throws FileNotFoundException {
-    	Marker marker = new Marker(map);
+    	Marker marker = new Marker(getMap());
     	
     	Icon icon = new Icon();
     	InputStream inputstream = new FileInputStream("./res/bus.png");
@@ -82,7 +80,6 @@ public class BusMap extends MapView{
         // Check if the map is loaded correctly
         if (status == MapStatus.MAP_STATUS_OK) {
             // Creating a map options object
-        	map=getMap();
         	
             MapOptions mapOptions = new MapOptions();
             // Creating a map type control options object
@@ -92,11 +89,11 @@ public class BusMap extends MapView{
             // Setting map type control options
             mapOptions.setMapTypeControlOptions(controlOptions);
             // Setting map options
-            map.setOptions(mapOptions);
+            getMap().setOptions(mapOptions);
             // Setting the map center
-            map.setCenter(new LatLng(44.493889, 11.342778));
+            getMap().setCenter(new LatLng(44.493889, 11.342778));
             // Setting initial zoom value
-            map.setZoom(14.0);      
+            getMap().setZoom(14.0);      
             
             s.release(); 
         }
