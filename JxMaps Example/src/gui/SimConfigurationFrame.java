@@ -57,11 +57,7 @@ public class SimConfigurationFrame extends JFrame {
 		contentPane.add(lineNo32CheckBox, gbc_lineNo32CheckBox);
 		
 		JButton startSimButton = new JButton("START SIM");
-		startSimButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				startSimButtonPressed();
-			}
-		});
+		startSimButton.addActionListener(this::startSimButtonPressed);
 		
 		GridBagConstraints gbc_startSimButton = new GridBagConstraints();
 		gbc_startSimButton.gridx = 0;
@@ -69,7 +65,7 @@ public class SimConfigurationFrame extends JFrame {
 		contentPane.add(startSimButton, gbc_startSimButton);
 	}
 	
-	public void startSimButtonPressed() {
+	public void startSimButtonPressed(ActionEvent e) {
 		this.busMap = new BusMap();
 		if(lineNo32CheckBox.isSelected()) {
 			BusVisualizerAggregator aggregator = new BusVisualizerAggregator("BUS32", busMap);
