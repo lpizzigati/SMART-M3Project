@@ -1,26 +1,26 @@
 package main;
 
-import com.teamdev.jxmaps.ControlPosition;
-import com.teamdev.jxmaps.LatLng;
-import com.teamdev.jxmaps.Map;
-import com.teamdev.jxmaps.MapOptions;
-import com.teamdev.jxmaps.MapReadyHandler;
-import com.teamdev.jxmaps.MapStatus;
-import com.teamdev.jxmaps.MapTypeControlOptions;
-import com.teamdev.jxmaps.Marker;
-import com.teamdev.jxmaps.Polyline;
-import com.teamdev.jxmaps.PolylineOptions;
-import com.teamdev.jxmaps.swing.MapView;
-import com.teamdev.jxmaps.Icon;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.List;
 import java.util.concurrent.Semaphore;
 
+import com.teamdev.jxmaps.ControlPosition;
+import com.teamdev.jxmaps.Icon;
+import com.teamdev.jxmaps.LatLng;
+import com.teamdev.jxmaps.Map;
+import com.teamdev.jxmaps.MapOptions;
+import com.teamdev.jxmaps.MapStatus;
+import com.teamdev.jxmaps.MapTypeControlOptions;
+import com.teamdev.jxmaps.Marker;
+import com.teamdev.jxmaps.Polyline;
+import com.teamdev.jxmaps.PolylineOptions;
+import com.teamdev.jxmaps.swing.MapView;
+
 
 @SuppressWarnings("serial")
-public class BusMap extends MapView implements MapReadyHandler{
+public class BusMap extends MapView{
 	
 	private Map map;
 	private Semaphore s;
@@ -29,7 +29,7 @@ public class BusMap extends MapView implements MapReadyHandler{
         // the map object is ready to use. Current implementation of onMapReady customizes the map object.
     	s = new Semaphore(0);
     	
-    	setOnMapReadyHandler(this);
+    	setOnMapReadyHandler(this::onMapReady);
     }
     
     public void addBusline(List<LatLng> points , String color) {
